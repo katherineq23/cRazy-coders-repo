@@ -1,0 +1,26 @@
+---
+title: "cRazy-coders-module5"
+author: "cRazy-coders"
+date: "2022-10-05"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# Introduction
+
+In this project we will be exploring whether body temperature vary in human subjects according to activity level. As suggested by a study by @refinetti1999relationship , in many observed mammals an increase in metabolic heat production derived from the increase in activity may be responsible for the body temperature rhythm. Data was collected regarding the locomotor activity and body temperature of 8 mammalian species, four of them nocturnal (flying squirrel, golden hamster, fat-tailed gerbil, and Mongolian gerbil) and four of them diurnal (Chilean degu, thirteen-lined ground squirrel, Richardson ground squirrel, and tree shrew), in order to study the relationshiop between these two rythms. The plotted results for the flying squirrel showed daily rhythmicity in both temperature and activity, where increases in activity were often accompanied by corresponding increases in body temperature. In all four mammalian species studied, the results simialrly showed the daily rhythms of body temperature and locomotor activity being very closely synchronized.
+
+
+# Methods
+
+# Results
+
+# Discussion
+
+# Author Contributions
+
+Katherine - introduction
+
+# References
