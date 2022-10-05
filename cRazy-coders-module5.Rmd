@@ -3,6 +3,7 @@ title: "cRazy-coders-module5"
 author: "cRazy-coders"
 date: "2022-10-05"
 output: html_document
+bibliography: BIOL2140.bib
 ---
 
 ```{r setup, include=FALSE}
