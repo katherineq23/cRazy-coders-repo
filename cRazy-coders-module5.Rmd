@@ -11,10 +11,12 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 # Introduction
 
-In this project we will be exploring whether body temperature vary in human subjects according to activity level. As suggested by a study by @refinetti1999relationship , in many observed mammals an increase in metabolic heat production derived from the increase in activity may be responsible for the body temperature rhythm. Data was collected regarding the locomotor activity and body temperature of 8 mammalian species, four of them nocturnal (flying squirrel, golden hamster, fat-tailed gerbil, and Mongolian gerbil) and four of them diurnal (Chilean degu, thirteen-lined ground squirrel, Richardson ground squirrel, and tree shrew), in order to study the relationshiop between these two rythms. The plotted results for the flying squirrel showed daily rhythmicity in both temperature and activity, where increases in activity were often accompanied by corresponding increases in body temperature. In all four mammalian species studied, the results simialrly showed the daily rhythms of body temperature and locomotor activity being very closely synchronized.
+In this project we will be exploring whether body temperature vary in human subjects according to activity level. As suggested by a study by @refinetti1999relationship , in many observed mammals an increase in metabolic heat production derived from the increase in activity may be responsible for the body temperature rhythm. Data was collected regarding the locomotive activity and body temperature of 8 mammalian species, four of them nocturnal (flying squirrel, golden hamster, fat-tailed gerbil, and Mongolian gerbil) and four of them diurnal (Chilean degu, thirteen-lined ground squirrel, Richardson ground squirrel, and tree shrew), in order to study the relationship between these two rhythms. The plotted results for the flying squirrel showed daily rhythmicity in both temperature and activity, where increases in activity were often accompanied by corresponding increases in body temperature. In all four mammalian species studied, the results similarly showed the daily rhythms of body temperature and locomotive activity being very closely synchronized.
 
 
 # Methods
+
+As mentioned in the introduction, the relationship between body temperature in humans with activity level is being explored in this study. In order to determine the relationship between the two, each human subject had their body temperature measured from their armpit while calmly sitting for 100s. Then, the subjects were instructed to perform jump and jacks for 5 minutes. After exerting themselves for 5 minutes, the body temperatures of the subjects were once again recorded from their armpits. Each subject had their data stored in individual files which were then combined and analyzed in R Markdown. 
 
 # Results
 
@@ -23,5 +25,5 @@ In this project we will be exploring whether body temperature vary in human subj
 # Author Contributions
 
 Katherine - introduction
-
+Eugene - Methods
 # References
