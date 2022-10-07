@@ -16,7 +16,7 @@ In this project we will be exploring whether body temperature vary in human subj
 
 # Methods
 
-As mentioned in the introduction, the relationship between body temperature in humans with activity level is being explored in this study. In order to determine the relationship between the two, each human subject had their body temperature measured from their armpit while calmly sitting for 100s. Then, the subjects were instructed to perform jump and jacks for 5 minutes. After exerting themselves for 5 minutes, the body temperatures of the subjects were once again recorded from their armpits. Each subject had their data stored in individual files which were then combined and analyzed in R Markdown. 
+As mentioned in the introduction, the relationship between body temperature in humans with activity level is being explored in this study. In order to determine the relationship between the two, each human subject had their body temperature measured from their armpit while calmly sitting for 60s. Then, the subjects were instructed to perform jump and jacks for 1 minute. After exerting themselves for 1 minute, the body temperatures of the subjects were once again recorded from their armpits. Each subject had their data stored in individual files which were then combined and analyzed in R Markdown. 
 
 # Results
 
@@ -24,6 +24,6 @@ As mentioned in the introduction, the relationship between body temperature in h
 
 # Author Contributions
 
-Katherine - introduction
+Katherine - Introduction
 Eugene - Methods
 # References
