@@ -47,13 +47,13 @@ From our data we observed that our body temperatures were lower after a minute o
 
 # Author Contributions
 
-Katherine - Introduction
+Katherine - Introduction, Reference
 Eugene - Methods, Device Assembly
 Phoebe - Results, References, Edits
 Sabrina - Discussion, Device Assembly
 
 # References
 
-@refinetti1999relationship studied metabolic heat production in mammals after activity.
+@refinetti1999relationship studied locomotive activity vs temperature in four mammals. 
 
 @kenney2017restoration studied sweat's role in balancing temperature during exercise.
