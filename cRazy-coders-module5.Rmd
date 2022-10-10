@@ -34,3 +34,7 @@ Phoebe -
 Sabrina - Discussion
 
 # References
+
+@refinetti1999relationship studied metabolic heat production in mammals after activity.
+
+@kenney2017restoration studied sweat's role in balancing temperature during exercise.
