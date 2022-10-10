@@ -20,13 +20,17 @@ As mentioned in the introduction, the relationship between body temperature in h
 
 # Results
 
+
+
 # Discussion
+
+Our findings contradict congruent findings from @refinetti1999relationship, however, this may be due to the length of exercise and differences between species. The subjects exercised for the short 1 minute period after rest, which cannot be compared to a days worth of locomotive activity. Humans also sweat to balance the heat produced during exercise, shown in a study by @kenney2017restoration, and thus the human body temperature will drop due to loss of heat from sweat.
 
 # Author Contributions
 
 Katherine - Introduction
 Eugene - Methods
 Phoebe - 
-Sabrina -
+Sabrina - Discussion
 
 # References
