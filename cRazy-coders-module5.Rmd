@@ -20,7 +20,26 @@ As mentioned in the introduction, the relationship between body temperature in h
 
 # Results
 
-
+```{r}
+library(tidyverse)
+dat.f <- list.files(pattern = "rest|active.csv") %>% 
+  print()
+  
+dat.l <- list() 
+for(i in dat.f){
+  met.dat<- unlist(strsplit(i,"_")) 
+  who <- met.dat[1] 
+  activity <- gsub(".csv","",met.dat[2]) 
+  
+  dat.l[[i]]<- read_csv(i)%>%
+    mutate(who=who,activity=activity) 
+}
+dat <- do.call(rbind,dat.l) 
+```
+```{r, fig.cap="Box-Plot Showing Activity Level of Each Group Member (x-axis) vs Body Temperature in Celcius (y-axis) From Dat Table (dat) Created using Data Set (dat.l)"}
+dat%>%
+  ggplot()+geom_boxplot(aes(x=activity,y=degC))+facet_grid(.~who) 
+```
 
 # Discussion
 
@@ -29,9 +48,9 @@ Our findings contradict congruent findings from @refinetti1999relationship, howe
 # Author Contributions
 
 Katherine - Introduction
-Eugene - Methods
-Phoebe - 
-Sabrina - Discussion
+Eugene - Methods, Device Assembly
+Phoebe - Results, References, Edits
+Sabrina - Discussion, Device Assembly
 
 # References
 
