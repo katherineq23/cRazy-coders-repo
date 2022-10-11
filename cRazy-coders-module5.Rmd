@@ -34,10 +34,8 @@ for(i in dat.f){
     mutate(who=who,activity=activity) 
   
 } 
-```
-```{r, "Box Plot", fig.cap="Box-Plot Showing Activity Type for Each Group Member (x-axis) vs Body Temperature in Celcius (y-axis) From Dat Table (dat) Created using Data Set (dat.l)"}
 dat%>%
-  ggplot()+geom_boxplot(aes(x=activity,y=degC))+facet_grid(.~who) 
+  ggplot() + geom_boxplot(aes(x=activity,y=degC)) + facet_grid(.~who) + labs(caption="Box-Plot Showing Activity Type for Each Group Member (x-axis) vs Body Temperature in Celcius (y-axis)") + theme(plot.caption=element_text(hjust=0.5))
 ```
 
 # Discussion
