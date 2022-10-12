@@ -6,6 +6,11 @@ output: html_document
 bibliography: BIOL2140.bib
 ---
 
+```{r, include=FALSE}
+library(tidyverse)
+library(knitr)
+```
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -19,20 +24,21 @@ In this project we will be exploring whether body temperature vary in human subj
 As mentioned in the introduction, the relationship between body temperature in humans with activity level is being explored in this study. In order to determine the relationship between the two, each human subject had their body temperature measured from their armpit while calmly sitting for 30s. Then, the subjects were instructed to perform jump and jacks for 1 minute. After exerting themselves for 1 minute, the body temperatures of the subjects were once again recorded from their armpits. Each subject had their data stored in individual files which were then combined and analyzed in R Markdown. 
 
 # Results
-
-```{r}
+```{r, include=FALSE}
 library(tidyverse)
-dat.f <- list.files(pattern = "rest|active.csv")
-
+dat.f <- list.files(pattern = "Rest|Active.csv")
 dat.l <- list()
 
 for(i in dat.f){
-  met.dat<- unlist(strsplit(i,"_")) 
-  who <- met.dat[1] 
-  activity <- gsub(".csv","",met.dat[2]) 
+  met.dat<- unlist(strsplit(i,"_"))
+  who <- met.dat[1]
+  activity <- gsub(".csv","",met.dat[2])
   dat.l[[i]]<- read_csv(i)%>%
-    mutate(who=who,activity=activity) 
-} 
+    mutate(who=who,activity=activity)
+}
+dat <- do.call(rbind,dat.l)
+```
+```{r, echo=FALSE}
 dat%>%
   ggplot() + geom_boxplot(aes(x=activity,y=degC)) + facet_grid(.~who) + labs(caption="Box-Plot Showing Activity Type for Each Group Member (x-axis) vs Body Temperature in Celcius (y-axis)") + theme(plot.caption=element_text(hjust=0.5))
 ```
@@ -43,7 +49,7 @@ From our data we observed that our body temperatures were lower after a minute o
 
 # Author Contributions
 
-Katherine - Introduction, References
+Katherine - Introduction, References, Results Revisions
 Eugene - Methods, Device Assembly, Data Collection
 Phoebe - Data + Results, References, Revision + Edits
 Sabrina - Discussion, Device Assembly
