@@ -49,10 +49,10 @@ From our data we observed that our body temperatures were lower after a minute o
 
 # Author Contributions
 
-Katherine - Introduction, References, Results Revisions
-Eugene - Methods, Device Assembly, Data Collection
-Phoebe - Data + Results, References, Revision + Edits
-Sabrina - Discussion, Device Assembly
+Katherine - Introduction, References, Results Revisions  
+Eugene - Methods, Device Assembly, Data Collection  
+Phoebe - Data + Results, References, Revision + Edits  
+Sabrina - Discussion, Device Assembly, Code Revisions
 
 # References
 
