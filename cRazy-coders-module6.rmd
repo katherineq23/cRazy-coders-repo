@@ -6,6 +6,17 @@ output: html_document
 bibliography: BIOL2140.bib
 ---
 
+```{r, include=FALSE}
+library(tidyverse)
+library(knitr)
+library(Momocs)
+library(ape)
+library(phytools)
+library(RRphylo)
+library(ggtree)
+library(wesanderson)
+```
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
