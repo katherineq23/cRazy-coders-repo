@@ -172,3 +172,5 @@ Sabrina - Image Digitization
 Katherine - Image Digitization
 
 # References
+@hahn2016secret studied moth's role as pollinators in many ecosystems. 
+@antzen2008hindwings studied the different roles fore- and hindwings play and the selective pressures that led them to evolve this way. 
