@@ -354,13 +354,15 @@ Diversity in lineage and such genetic differences in species can accelerate evol
 
 
 # Author Contributions
-Phoebe - Image Digitization, Introduction
+Phoebe - Image Digitization, Introduction, References
 Eugene - Image Digitization, Results, Reformatting of Data to let run on Windows
 Sabrina - Image Digitization, Methods
-Katherine - Image Digitization, Discussion
+Katherine - Image Digitization, Discussion, References
 
 # References
 @hahn2016secret studied moth's role as pollinators in many ecosystems. 
 @antzen2008hindwings studied the different roles fore- and hindwings play and the selective pressures that led them to evolve this way. 
+@kawahara2019phylogenomics studied the evolutionary timing and pattern of butterflies and moths using phylogenomics of which we utilized their phylogenetic tree.
+@omeara2006testing studied different rates of continuous trait evolution using likelihood, of which we utilized their noncensored test.
 @owens2020comparative studied comparative hylogenetics of papilio butterfly wing shape and size which demonstrates independent gindwing and forewing evolution.
 @tomoyasu2017ultrabithorax studied the evolution of insect forewing/hindwing differentiation.
