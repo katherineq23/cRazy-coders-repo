@@ -29,7 +29,7 @@ Outlines of the forewing and hindwing for each species were made using the FIJI 
 
 # Results
 
-```{r, Processing of Data, results= 'hide'}
+```{r, Processing of Data, include= FALSE}
 ##Start of Shape Analysis
 f <- list.files("class_out_data",pattern=".txt|.csv",full.names = TRUE)
 out <- read_delim(f[1],delim="\t") %>% 
@@ -42,7 +42,7 @@ out %>%
   stack()
 ```
 
-```{r, More processing of Data, results= 'hide'}
+```{r, More processing of Data, include= FALSE}
 #make a large df with vroom
 out.df <- vroom::vroom(f, id = "filename")
 
@@ -76,7 +76,7 @@ hindwings %>%
   stack()
 ```
 
-```{r, Procrustese Transformation, results= 'hide'}
+```{r, Procrustese Transformation, include= FALSE}
 fore.min <- forewings %>% 
   coo_nb() %>% 
   min()
@@ -98,7 +98,7 @@ hindwings %>%
   stack()
 ```
 
-```{r, EFA}
+```{r, EFA, include= FALSE}
 forewings %>%
   coo_interpolate(fore.min) %>% 
    coo_align()  %>%
@@ -112,7 +112,7 @@ hindwings %>%
   efourier(norm=FALSE) 
 ```
 
-```{r, PCA}
+```{r, PCA, include= FALSE}
 forewing.pca <- forewings %>%
   coo_interpolate(fore.min) %>%
    coo_align()  %>%
@@ -135,7 +135,9 @@ hindwings %>%
    coo_slide(id=1) %>% 
   fgProcrustes() %>% 
   stack
+```
 
+```{r, PCA Plots, echo = FALSE}
 forewing.pca %>% 
   plot_PCA(title = "forewings")
 
@@ -143,7 +145,7 @@ hindwing.pca %>%
   plot_PCA(title = "hindwings")
 ```
 
-```{r, Setting Up Comparative Analysis}
+```{r, Setting Up Comparative Analysis, include = FALSE}
 ##Start of Comparative Analysis
 lep.tree <- ape::read.tree("lep_tree2.tre")
 
@@ -171,7 +173,7 @@ forewing.pca2 <-  tibble(xy.file=basename(rownames(forewing.pca$x)),PC1=forewing
   left_join(out.data)
 ```
 
-```{r, Evolutionary Rates}
+```{r, Evolutionary Rates, include= FALSE}
 ##Start of Evolutionary Rates
 drops <- lep.tree$tip.label[!lep.tree$tip.label%in%unique(out.data$species)]
 
@@ -314,7 +316,7 @@ plot_SS <- function(tre=NULL,SS=NULL,tax=NULL){
 }
 ```
 
-```{r, Plotting Shifts in Evolutionary Rates, include= FALSE}
+```{r, Plotting Shifts in Evolutionary Rates, echo= FALSE}
 tax.names <- readRDS("Lep_classification.RDS")
 
 hindPC1.res <- plot_SS(lep.tree2,hindPC1.SS,tax = tax.names)
@@ -324,7 +326,7 @@ hindPC1.res$plot
 hindPC1.res$res
 ```
 
-```{r, PIC for PC1, include= FALSE}
+```{r, PIC for PC1, echo= FALSE, message= FALSE}
 ##Start of Shape Evolution Correlation
 hindPC1.pic <- pic(hind.pc1,phy = lep.tree2)
 forePC1.pic <- pic(fore.pc1,phy = lep.tree2)
@@ -340,7 +342,7 @@ PC1.pic %>%
 summary(lm(hind~fore,PC1.pic))
 ```
 
-```{r, PIC for PC2, include= FALSE}
+```{r, PIC for PC2, echo= FALSE, message= FALSE}
 hindPC2.pic <- pic(hind.pc2,phy = lep.tree2)
 forePC2.pic <- pic(fore.pc2,phy = lep.tree2)
 
@@ -369,7 +371,7 @@ Sabrina - Image Digitization, Methods
 Katherine - Image Digitization, Discussion, References
 
 # References
-@hahn2016secret studied moth's role as pollinators in many ecosystems. 
+@hahn2016secret studied moth's role as pollinators in many ecosystems.
 @antzen2008hindwings studied the different roles fore- and hindwings play and the selective pressures that led them to evolve this way. 
 @kawahara2019phylogenomics studied the evolutionary timing and pattern of butterflies and moths using phylogenomics of which we utilized their phylogenetic tree.
 @omeara2006testing studied different rates of continuous trait evolution using likelihood, of which we utilized their noncensored test.
