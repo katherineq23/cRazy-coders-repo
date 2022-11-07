@@ -362,3 +362,5 @@ Katherine - Image Digitization, Discussion
 # References
 @hahn2016secret studied moth's role as pollinators in many ecosystems. 
 @antzen2008hindwings studied the different roles fore- and hindwings play and the selective pressures that led them to evolve this way. 
+@owens2020comparative studied comparative hylogenetics of papilio butterfly wing shape and size which demonstrates independent gindwing and forewing evolution.
+@tomoyasu2017ultrabithorax studied the evolution of insect forewing/hindwing differentiation.
