@@ -28,10 +28,10 @@ The Lepidoptera, commonly known as moths and butterflies, are an impressive orde
 Outlines of the forewing and hindwing for each species were made using the FIJI program. A macro was run that recorded the coordinates of the spline that was fit through the points made in the outline. Shape analysis was done through an R package called Momocs, where a Fourier analysis (EFA) was run through the data, along with a Principle Components Analysis (PCA) to maximize variance. First, the outlines of each species were broken into forewings and hindwings, then, a Procrustes superimposition is performed to account for the scaling of the pictures. Once the data was organized, the EFA and PCA were run. Utilizing a phylogenetic tree created by @kawahara2019phylogenomics and a "noncensored test" by @omeara2006testing, evolutionary rates were compared within the forewings and hindwings of the lepidoptera in the samples provided by using a function called brownie.lite() from the package phytools, and the evolutionary shift was observed using RRphylo() and search.shift() from the RRphylo package. Finally, a Phylogenetic Independent Contrasts (PIC) analysis was performed to check forewing and hindwing shape evolution correlation, and a linear model was used to find the R-squared values. 
 
 # Results
-```{r plots}
+
+## Shape Analysis
+```{r, pre, results= 'hide'}
 f <- list.files("class_out_data",pattern=".txt|.csv",full.names = TRUE)
-
-
 out <- read_delim(f[1],delim="\t") %>% 
   as.matrix()
 
@@ -40,18 +40,9 @@ out %>%
   Out() %>% 
   coo_flipx() %>% 
   stack()
+```
 
-#make a large df with vroom
-out.df <- vroom::vroom(f, id = "filename")
-
-#make list
-outs.l <- sapply(f,function(x) out.df %>% filter(filename==x) %>% select(X,Y) %>% as.matrix)
-
-outs.l %>% 
-  Out() %>% 
-  coo_flipx() %>% 
-  stack()
-
+```{r, }
 #make a large df with vroom
 out.df <- vroom::vroom(f, id = "filename")
 
@@ -66,19 +57,9 @@ outs.l <- sapply(f,function(x) out.df %>% filter(filename==x) %>% select(X,Y) %>
 #extract wing info
 wings <- gsub("XY_.+_(hindwing|forewing)\\..+","\\1",basename(names(outs.l)))
 
-#make a large df with vroom
-out.df <- vroom::vroom(f, id = "filename")
-
-#add wing info
-out.df <- out.df %>% 
-  mutate(wing=gsub("XY_.+_(hindwing|forewing)\\..+","\\1",basename(filename))) %>% 
-  na.omit()
-
-#make list
-outs.l <- sapply(f,function(x) out.df %>% filter(filename==x) %>% select(X,Y) %>% as.matrix)
-
-#extract wing info
-wings <- gsub("XY_.+_(hindwing|forewing)\\..+","\\1",basename(names(outs.l)))
+outs <-  outs.l %>% 
+  Out(fac=list(wing=wings)) %>% 
+  coo_flipx()
 
 forewings <- outs %>% 
   filter(wing=="forewing")
@@ -91,7 +72,9 @@ forewings %>%
 
 hindwings %>% 
   stack()
+```
 
+```{r, }
 fore.min <- forewings %>% 
   coo_nb() %>% 
   min()
@@ -111,7 +94,9 @@ hindwings %>%
    coo_align()  %>%
   fgProcrustes() %>%
   stack()
+```
 
+```{r, }
 forewings %>%
   coo_interpolate(fore.min) %>% 
    coo_align()  %>%
@@ -123,7 +108,9 @@ hindwings %>%
    coo_align()  %>%
   fgProcrustes() %>% 
   efourier(norm=FALSE) 
+```
 
+```{r, }
 forewing.pca <- forewings %>%
   coo_interpolate(fore.min) %>%
    coo_align()  %>%
@@ -152,6 +139,7 @@ forewing.pca %>%
 
 hindwing.pca %>% 
   plot_PCA(title = "hindwings")
+```
 
 #Comparative Analysis
 lep.tree <- ape::read.tree("lep_tree2.tre")
