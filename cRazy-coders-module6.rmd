@@ -29,8 +29,8 @@ Outlines of the forewing and hindwing for each species were made using the FIJI 
 
 # Results
 
-## Shape Analysis
-```{r, pre, results= 'hide'}
+```{r, Processing of Data, results= 'hide'}
+##Start of Shape Analysis
 f <- list.files("class_out_data",pattern=".txt|.csv",full.names = TRUE)
 out <- read_delim(f[1],delim="\t") %>% 
   as.matrix()
@@ -42,7 +42,7 @@ out %>%
   stack()
 ```
 
-```{r, }
+```{r, More processing of Data, results= 'hide'}
 #make a large df with vroom
 out.df <- vroom::vroom(f, id = "filename")
 
@@ -61,12 +61,14 @@ outs <-  outs.l %>%
   Out(fac=list(wing=wings)) %>% 
   coo_flipx()
 
+#Organize outlines based on forewing and hindwing
 forewings <- outs %>% 
   filter(wing=="forewing")
 
 hindwings <- outs %>% 
   filter(wing=="hindwing")
 
+#Visualize unscaled outlines
 forewings %>% 
   stack()
 
@@ -74,7 +76,7 @@ hindwings %>%
   stack()
 ```
 
-```{r, }
+```{r, Procrustese Transformation, results= 'hide'}
 fore.min <- forewings %>% 
   coo_nb() %>% 
   min()
@@ -96,7 +98,7 @@ hindwings %>%
   stack()
 ```
 
-```{r, }
+```{r, EFA}
 forewings %>%
   coo_interpolate(fore.min) %>% 
    coo_align()  %>%
@@ -110,7 +112,7 @@ hindwings %>%
   efourier(norm=FALSE) 
 ```
 
-```{r, }
+```{r, PCA}
 forewing.pca <- forewings %>%
   coo_interpolate(fore.min) %>%
    coo_align()  %>%
@@ -141,8 +143,8 @@ hindwing.pca %>%
   plot_PCA(title = "hindwings")
 ```
 
-#Comparative Analysis
-```{r, }
+```{r, Setting Up Comparative Analysis}
+##Start of Comparative Analysis
 lep.tree <- ape::read.tree("lep_tree2.tre")
 
 plot(lep.tree,cex=0.1)
@@ -157,26 +159,20 @@ basename(names(outs))[1:5]
 
 lep.sp <- read_csv("lep_image_data.csv")
 
-head(lep.sp)
-
-head(lep.sp$identifier)
-
+#Merging of Data into tibbles
 out.data <- tibble(xy.file=basename(names(outs))) %>% 
   mutate(identifier=gsub("XY_|_hindwing|_forewing|.txt","",xy.file)) %>% 
   left_join(lep.sp)
-
-head(out.data)
-
-head(hindwing.pca$x,1)
-
-head(forewing.pca$x,1)
 
 hindwing.pca2 <-  tibble(xy.file=basename(rownames(hindwing.pca$x)),PC1=hindwing.pca$x[,1],PC2=hindwing.pca$x[,2]) %>% 
   left_join(out.data)
 
 forewing.pca2 <-  tibble(xy.file=basename(rownames(forewing.pca$x)),PC1=forewing.pca$x[,1],PC2=forewing.pca$x[,2])%>% 
   left_join(out.data)
+```
 
+```{r, Evolutionary Rates}
+##Start of Evolutionary Rates
 drops <- lep.tree$tip.label[!lep.tree$tip.label%in%unique(out.data$species)]
 
 lep.tree2 <- drop.tip(lep.tree,drops)
@@ -232,7 +228,9 @@ names(fore.pc2) <-  forewing.pca2 %>%
      group_by(species) %>% 
   summarize(PC2=mean(PC2)) %>% 
   pull(species)
+```
 
+```{r, Brownie lite functions, include= FALSE}
 forePC1.BM<-brownie.lite(lep.tree2,fore.pc1*10)
 hindPC1.BM<-brownie.lite(lep.tree2,hind.pc1*10)
 
@@ -240,7 +238,10 @@ forePC2.BM<-brownie.lite(lep.tree2,fore.pc2*10)
 hindPC2.BM<-brownie.lite(lep.tree2,hind.pc2*10)
 
 forePC1.BM$sig2.single
+```
 
+```{r, Shifts in Evolutionary Rates, include= FALSE}
+##Start of Shifts in Evolutionary Rates
 hindPC1.RR <- RRphylo(tree=lep.tree2,y=hind.pc1)
 
 hindPC1.RR$rates
@@ -256,10 +257,9 @@ hindPC1.plot <- plotShift(RR=hindPC1.RR,SS=hindPC1.SS)
 
 forePC1.plot <- plotShift(RR=hindPC1.RR,SS=hindPC1.SS)
 hindPC1.plot$plotClades()
+```
 
-library(ggtree)
-library(wesanderson)
-
+```{r, Defining Functions, include= FALSE}
 plot_SS <- function(tre=NULL,SS=NULL,tax=NULL){
   
 
@@ -312,7 +312,9 @@ plot_SS <- function(tre=NULL,SS=NULL,tax=NULL){
   return(list(plot=p,res=res))
   
 }
+```
 
+```{r, Plotting Shifts in Evolutionary Rates, include= FALSE}
 tax.names <- readRDS("Lep_classification.RDS")
 
 hindPC1.res <- plot_SS(lep.tree2,hindPC1.SS,tax = tax.names)
@@ -320,7 +322,10 @@ hindPC1.res <- plot_SS(lep.tree2,hindPC1.SS,tax = tax.names)
 hindPC1.res$plot
 
 hindPC1.res$res
+```
 
+```{r, PIC for PC1, include= FALSE}
+##Start of Shape Evolution Correlation
 hindPC1.pic <- pic(hind.pc1,phy = lep.tree2)
 forePC1.pic <- pic(fore.pc1,phy = lep.tree2)
 
@@ -333,7 +338,9 @@ PC1.pic %>%
   ggplot(aes(x=fore,y=hind))+geom_point()+geom_smooth(method="lm")
 
 summary(lm(hind~fore,PC1.pic))
+```
 
+```{r, PIC for PC2, include= FALSE}
 hindPC2.pic <- pic(hind.pc2,phy = lep.tree2)
 forePC2.pic <- pic(fore.pc2,phy = lep.tree2)
 
@@ -354,8 +361,13 @@ Diversity in lineage and such genetic differences in species can accelerate evol
 
 
 # Author Contributions
+<<<<<<< Updated upstream
 Phoebe - Image Digitization, Introduction, References
 Eugene - Image Digitization, Results, Reformatting of Data to let run on Windows
+=======
+Phoebe - Image Digitization, Introduction
+Eugene - Image Digitization, Results (Code), Reformatting of Data to allow code to be run on Windows
+>>>>>>> Stashed changes
 Sabrina - Image Digitization, Methods
 Katherine - Image Digitization, Discussion, References
 
