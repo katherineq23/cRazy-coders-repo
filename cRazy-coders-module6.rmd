@@ -363,13 +363,8 @@ Diversity in lineage and such genetic differences in species can accelerate evol
 
 
 # Author Contributions
-<<<<<<< Updated upstream
-Phoebe - Image Digitization, Introduction, References
-Eugene - Image Digitization, Results, Reformatting of Data to let run on Windows
-=======
 Phoebe - Image Digitization, Introduction
 Eugene - Image Digitization, Results (Code), Reformatting of Data to allow code to be run on Windows
->>>>>>> Stashed changes
 Sabrina - Image Digitization, Methods
 Katherine - Image Digitization, Discussion, References
 
