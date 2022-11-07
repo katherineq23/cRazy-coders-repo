@@ -142,10 +142,12 @@ hindwing.pca %>%
 ```
 
 #Comparative Analysis
+```{r, }
 lep.tree <- ape::read.tree("lep_tree2.tre")
 
 plot(lep.tree,cex=0.1)
 
+#Making root of tree upper left
 lep.tree <- ladderize(lep.tree)
 plot(lep.tree,cex=0.1)
 
@@ -331,12 +333,25 @@ PC1.pic %>%
   ggplot(aes(x=fore,y=hind))+geom_point()+geom_smooth(method="lm")
 
 summary(lm(hind~fore,PC1.pic))
+
+hindPC2.pic <- pic(hind.pc2,phy = lep.tree2)
+forePC2.pic <- pic(fore.pc2,phy = lep.tree2)
+
+PC2.pic <- tibble(
+  hind=hindPC2.pic,
+  fore=forePC2.pic
+)
+
+PC2.pic %>% 
+  ggplot(aes(x=fore,y=hind))+geom_point()+geom_smooth(method="lm")
+
+summary(lm(hind~fore,PC2.pic))
 ```
 # Discussion
 
 # Author Contributions
 Phoebe - Image Digitization, Introduction
-Eugene - Image Digitization, Results
+Eugene - Image Digitization, Results, Reformatting of Data to let run on Windows
 Sabrina - Image Digitization, Methods
 Katherine - Image Digitization
 
