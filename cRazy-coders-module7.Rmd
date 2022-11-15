@@ -1,0 +1,36 @@
+---
+title: "cRazy-coders-module7"
+author: "cRazy-coders"
+date: "2022-11-14"
+output: html_document
+bibliography: BIOL3140.bib
+---
+
+```{r, include=FALSE}
+library(tidyverse)
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction
+The primary goal of this project is to explore the force-length relationship in muscles and specifically how this relationship shifts when muscles are fatigued. The mechanics of the force-length relationship in muscles is well studied, as described by @huxley2004fifty, it is the number of cross-bridges formed on a fiber level that mediate the force by a muscle along with the sliding filaments that explain the force-length relationship of sarcomeres. A maximally activated single fiber is experiencing maximum filament overlap to do so. The sliding filament theory is based on the idea that length changes in sarcomeres, fibers, and muscles happen by relative sliding of the stiff myofilaments, actin, and myosin, within a sarcomere.
+ 
+In order to study such a relationship, we will be conducting controlled and fatigued experiments using the human upper limb muscles by lifting a heavy book bag. This will cause the muscles to experience eccentric fatigue, in which the muscles are doing negative work. By undertaking maximum voluntary contractions (MVCs), our group will produce isometric force-angle curves for human forearm flexors. We will then use this data to compare at what angle maximum isometric force for fatigued and non-fatigued forearm flexors. 
+
+# Methods
+
+# Results
+
+# Discussion
+
+# Author Contributions
+Eugene - 
+Katherine - Introduction
+Phoebe - 
+Sabrina -
+
+
+# References
+
