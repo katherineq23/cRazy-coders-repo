@@ -1,0 +1,202 @@
+---
+title: "cRazy-coders-module6"
+author: "cRazy-coders"
+date: "2022-10-28"
+output: html_document
+bibliography: BIOL3140.bib
+---
+
+<!-- for comments -->
+<style>
+div.comment pre { background-color:#ffbbbb; }
+div.comment pre.r { background-color:#ffbbbb; }
+div.comment {color: red;}
+</style>
+
+```{r, include=FALSE}
+library(tidyverse)
+library(knitr)
+library(Momocs)
+library(ape)
+library(phytools)
+library(RRphylo)
+library(ggtree)
+library(wesanderson)
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction
+The Lepidoptera, commonly known as moths and butterflies, are an impressive order of insects with approximately 160,000 described extant species. Lepidoptera can be found in most terrestrial ecosystems, and play an especially crucial role in pollination. According to @hahn2016secret, moths can be important pollinators in many ecosystems. While they typically do not pollinate crop plants, they do pollinate other plants that are important for maintaining biodiversity. This is just one example of many of the important roles the species of Lepidoptera have in terrestrial ecosystems. A key phenotypic characteristic of Lepidoptera are their wings. Each species of Lepidoptera’s wings have unique characteristics evolved from selective pressures made by the airy environments they occupy. Wings differ in both size and shape. Additionally, the forewing and hindwing are different within species as well, and each serves varying functions. Without hindwings, Lepidoptera are still able to fly, but slower and with less maneuverability as suggested in a study by @antzen2008hindwings. Therefore, forewing’s shape and size may have been influenced by the need of flight, and hindwings by other factors such as sexual or protection. The aim of this project is to investigate the relationship between fore- and hindwings in evolutionary rates and if their shapes are correlated. Additionally, the evolvability of fore- and hindwings will be looked at to see if it varies significantly among major lineages of butterflies and moths. This will be achieved through a morphometric approach looking at about 200 species of both moths (a paraphyletic group) and butterflies. The results of this project will allow better understanding of wing-shape evolution in lepidoptera, a foundational order of insects to many ecosystems with great diversity. 
+
+<div class="comment">
+Great intro!!
+
+</div>
+
+# Methods
+<div class="comment">
+No methods section?
+
+```{r}
+grade <- 75
+grade <- grade-10
+```
+</div>
+
+# Results
+```{r plots}
+f <- list.files("class_out_data",pattern=".txt|.csv",full.names = TRUE)
+
+
+out <- read_delim(f[1],delim="\t") %>% 
+  as.matrix()
+
+out %>% 
+  list() %>% 
+  Out() %>% 
+  coo_flipx() %>% 
+  stack()
+
+#make a large df with vroom
+out.df <- vroom::vroom(f, id = "filename")
+
+#make list
+outs.l <- sapply(f,function(x) out.df %>% filter(filename==x) %>% select(X,Y) %>% as.matrix)
+
+outs.l %>% 
+  Out() %>% 
+  coo_flipx() %>% 
+  stack()
+
+#make a large df with vroom
+out.df <- vroom::vroom(f, id = "filename")
+
+#add wing info
+out.df <- out.df %>% 
+  mutate(wing=gsub("XY_.+_(hindwing|forewing)\\..+","\\1",basename(filename))) %>% 
+  na.omit()
+
+#make list
+outs.l <- sapply(f,function(x) out.df %>% filter(filename==x) %>% select(X,Y) %>% as.matrix)
+
+#extract wing info
+wings <- gsub("XY_.+_(hindwing|forewing)\\..+","\\1",basename(names(outs.l)))
+
+#make a large df with vroom
+out.df <- vroom::vroom(f, id = "filename")
+
+#add wing info
+out.df <- out.df %>% 
+  mutate(wing=gsub("XY_.+_(hindwing|forewing)\\..+","\\1",basename(filename))) %>% 
+  na.omit()
+
+#make list
+outs.l <- sapply(f,function(x) out.df %>% filter(filename==x) %>% select(X,Y) %>% as.matrix)
+
+#extract wing info
+wings <- gsub("XY_.+_(hindwing|forewing)\\..+","\\1",basename(names(outs.l)))
+
+forewings <- outs %>% 
+  filter(wing=="forewing")
+
+hindwings <- outs %>% 
+  filter(wing=="hindwing")
+
+forewings %>% 
+  stack()
+
+hindwings %>% 
+  stack()
+
+fore.min <- forewings %>% 
+  coo_nb() %>% 
+  min()
+
+forewings %>%
+  coo_interpolate(fore.min) %>% 
+  fgProcrustes() %>% 
+  stack()
+
+hind.min <- hindwings %>% 
+  coo_nb() %>% 
+  min()
+
+hindwings %>% 
+   coo_interpolate(hind.min) %>% 
+  coo_slide(id=1) %>% 
+   coo_align()  %>%
+  fgProcrustes() %>%
+  stack()
+
+forewings %>%
+  coo_interpolate(fore.min) %>% 
+   coo_align()  %>%
+  fgProcrustes() %>% 
+  efourier(norm=FALSE) 
+
+hindwings %>% 
+   coo_interpolate(hind.min) %>% 
+   coo_align()  %>%
+  fgProcrustes() %>% 
+  efourier(norm=FALSE) 
+
+forewing.pca <- forewings %>%
+  coo_interpolate(fore.min) %>%
+   coo_align()  %>%
+  coo_slide(id=1) %>% 
+  fgProcrustes() %>% 
+  efourier(norm=FALSE) %>% 
+  PCA()
+
+hindwing.pca <-hindwings %>% 
+   coo_interpolate(hind.min) %>% 
+   coo_align()  %>%
+   coo_slide(id=1) %>% 
+  fgProcrustes() %>% 
+  efourier(norm=FALSE) %>% 
+  PCA()
+
+hindwings %>% 
+   coo_interpolate(hind.min) %>% 
+   coo_align()  %>%
+   coo_slide(id=1) %>% 
+  fgProcrustes() %>% 
+  stack
+
+forewing.pca %>% 
+  plot_PCA(title = "forewings")
+
+hindwing.pca %>% 
+  plot_PCA(title = "hindwings")
+
+#Comparative Analysis
+lep.tree <- ape::read.tree("lep_tree2.tre")
+
+plot(lep.tree,cex=0.1)
+
+lep.tree <- ladderize(lep.tree)
+plot(lep.tree,cex=0.1)
+
+lep.tree$tip.label <- gsub("_"," ",lep.tree$tip.label)
+
+```
+# Discussion
+
+# Author Contributions
+Phoebe - Image Digitization, Introduction
+Eugene - Image Digitization
+Sabrina - Image Digitization
+Katherine - Image Digitization
+
+<div class="comment">
+
+This is less than half
+
+</div>
+
+# References
+@hahn2016secret studied moth's role as pollinators in many ecosystems. 
+@antzen2008hindwings studied the different roles fore- and hindwings play and the selective pressures that led them to evolve this way. 
