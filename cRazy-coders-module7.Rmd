@@ -29,8 +29,8 @@ Following data collection, the force-length relationship will be analyzed in two
 
 
 # Results
-```{r setup, include=FALSE}
-f <- list.files(path="./Project 8 data")
+```{r, Read files and making tibble, include=FALSE}
+f <- list.files(path="./Project 8 data", full.names = T)
 dat.1 <- list()
 
 for(i in f){
@@ -40,19 +40,25 @@ for(i in f){
   exp <- gsub(".csv", " ", metadata[4])
   dat.1[[i]] <- read_delim(i,delim = " ", col_names = c("Reading", "Force", "Unit"))%>%
     mutate(
-      sub = sub,
-      ang = ang,
-      exp = exp
+      subject = sub,
+      angle = ang,
+      experiment = exp
 )
 }
 
 dat <- do.call(rbind, dat.1)
 dat.2 <- dat%>%
-  group_by(sub,exp,ang)%>%
-  mutate(force = force/max(force))%>%
+  group_by(subject,experiment)%>%
+  mutate(force = Force/max(Force))%>%
   print()
   
 ```
+
+```{r, }
+dat.2%>%
+  ggplot(aes(angle,force,col=experiment))+geom_point()
+```
+
 # Discussion
 
 # Author Contributions
