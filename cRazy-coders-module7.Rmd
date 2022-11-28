@@ -25,7 +25,30 @@ In order to study such a relationship, we will be conducting controlled and fati
 # Methods
 
 # Results
+```{r setup, include=FALSE}
+f <- list.files(path="./Project 8 data")
+dat.1 <- list()
 
+for(i in f){
+  metadata <- unlist(strsplit(i,"_"))
+  sub <- metadata[2]
+  ang <- as.numeric(metadata[3])
+  exp <- gsub(".csv", " ", metadata[4])
+  dat.1[[i]] <- read_delim(i,delim = " ", col_names = c("Reading", "Force", "Unit"))%>%
+    mutate(
+      sub = sub,
+      ang = ang,
+      exp = exp
+)
+}
+
+dat <- do.call(rbind, dat.1)
+dat.2 <- dat%>%
+  group_by(sub,exp,ang)%>%
+  mutate(force = force/max(force))%>%
+  print()
+  
+```
 # Discussion
 
 # Author Contributions
