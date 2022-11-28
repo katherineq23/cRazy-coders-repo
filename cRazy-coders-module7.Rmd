@@ -8,6 +8,9 @@ bibliography: BIOL3140.bib
 
 ```{r, include=FALSE}
 library(tidyverse)
+library(MuMIn)
+library(knitr)
+library(dplyr)
 ```
 
 ```{r setup, include=FALSE}
