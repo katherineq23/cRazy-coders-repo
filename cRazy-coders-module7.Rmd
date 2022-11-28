@@ -47,15 +47,21 @@ for(i in f){
 }
 
 dat <- do.call(rbind, dat.1)
-dat.2 <- dat%>%
-  group_by(subject,experiment)%>%
-  mutate(force = Force/max(Force))%>%
-  print()
+dat.maxrecording <- dat%>%
+  group_by(subject,angle,experiment)%>%
+  summarize(max_force_recording= max(abs(Force)))
+  print(dat.maxrecording)
+
+dat.maxexp <- dat.maxrecording%>%
+  group_by(subject,experiment)
   
 ```
 
 ```{r, }
-dat.2%>%
+dat.3 <- dat.2%>%
+  na.omit()
+
+dat.3%>%
   ggplot(aes(angle,force,col=experiment))+geom_point()
 ```
 
