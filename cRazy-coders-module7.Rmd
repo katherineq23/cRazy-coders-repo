@@ -103,6 +103,31 @@ fits <- dat.norm2%>%
 
 ```
 
+```{r,}
+best.models <- fits%>%
+  left_join(AICs)%>%
+  group_by(subject,experiment)%>%
+  mutate(best=AICc==min(AICc))%>%
+  filter(best==TRUE)%>%
+  dplyr::select(-best)%>%
+  print()
+
+
+
+```
+
+```{r}
+anova(lm(theta_max~experiment,best.models))
+
+```
+```{r}
+best.models%>%
+  pivot_wider(id_cols=subject,names_from = experiment,values_from=theta_max)%>%
+  mutate(shift=fatigue-control)%>%
+  ungroup()%>%
+  summarise(mean.shift=mean(shift),se.shift=sd(shift)/sqrt(length(shift)))
+```
+
 # Discussion
 
 # Author Contributions
