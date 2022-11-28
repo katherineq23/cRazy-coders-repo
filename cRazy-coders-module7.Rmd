@@ -140,6 +140,6 @@ dat.3 <- dat.3 %>% mutate(shift= `fatigue `-`control `)%>% #Why do the variable 
 # Author Contributions
 Eugene - Results
 Katherine - Introduction
-Phoebe - 
+Phoebe - Methods
 Sabrina -
 
