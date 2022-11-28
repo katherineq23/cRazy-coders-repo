@@ -24,6 +24,10 @@ In order to study such a relationship, we will be conducting controlled and fati
 
 # Methods
 
+```{r, Read files and data tidying,message=FALSE}
+dat.f <- list.files(path="./Project8_data") 
+dat.l <- list()
+
 # Results
 
 # Discussion
@@ -33,7 +37,4 @@ Eugene -
 Katherine - Introduction
 Phoebe - 
 Sabrina -
-
-
-# References
 
