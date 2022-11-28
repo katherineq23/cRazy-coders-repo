@@ -87,6 +87,8 @@ AICs <- dat.norm2%>%
 
 ```
 ```{r, }
+x.pred <- seq(45,157.5,length.out = 1000)
+
 fits <- dat.norm2%>%
   group_by(subject,experiment)%>%
   summarize(
