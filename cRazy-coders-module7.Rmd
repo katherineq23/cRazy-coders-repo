@@ -126,11 +126,12 @@ dat.3 <- best.models%>%
   pivot_wider(id_cols=subject,names_from = experiment, values_from=theta_max)%>%
   print()
 
-dat.3 <- dat.3 %>% mutate(shift= `fatigue `-`control `)%>%
+dat.3 <- dat.3 %>% mutate(shift= `fatigue `-`control `)%>% #Why do the variable names change like this, it took forever to figure out
   ungroup() %>%
   na.omit()%>% 
   summarise(mean.shift=mean(shift),se.shift=sd(shift)/sqrt(length(shift))) %>% 
   print()
+
 
 ```
 
