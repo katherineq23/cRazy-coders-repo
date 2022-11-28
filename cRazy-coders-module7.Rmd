@@ -74,6 +74,32 @@ dat.2 <- dat.norm2%>%
 dat.2%>%
   ggplot(aes(angle,max_force_normalized,col=experiment))+geom_point()
 ```
+```{r, AICs}
+AICs <- dat.norm2%>%
+  group_by(subject,experiment)%>%
+  summarize(
+    m2=AICc(lm(max_force_normalized~poly(angle,2))), #second order
+    m3=AICc(lm(max_force_normalized~poly(angle,3))), #third order
+    m4=AICc(lm(max_force_normalized~poly(angle,4))) #fourth order
+  )%>%
+  pivot_longer(m2:m4,names_to="model",values_to="AICc")%>%
+  print()
+
+```
+```{r, }
+fits <- dat.norm2%>%
+  group_by(subject,experiment)%>%
+  summarize(
+    m2=predict(lm(max_force_normalized~poly(angle,2)),newdata=data.frame(angle=x.pred)), #second order
+    m3=predict(lm(max_force_normalized~poly(angle,3)),newdata=data.frame(angle=x.pred)), #third order
+    m4=predict(lm(max_force_normalized~poly(angle,4)),newdata=data.frame(angle=x.pred)) #fourth order
+  )%>%
+   pivot_longer(m2:m4,names_to="model")%>%
+   group_by(subject,experiment,model)%>%
+   summarize(theta_max=x.pred[which.max(value)])%>%
+   print()
+
+```
 
 # Discussion
 
