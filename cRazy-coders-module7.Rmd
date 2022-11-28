@@ -89,7 +89,7 @@ AICs <- dat.norm2%>%
 
 ```
 
-```{r, }
+```{r, Table of fits of different models, include = FALSE}
 x.pred <- seq(45,157.5,length.out = 1000)
 
 fits <- dat.norm2%>%
@@ -106,7 +106,7 @@ fits <- dat.norm2%>%
 
 ```
 
-```{r,}
+```{r, Finding best model, message = FALSE}
 best.models <- fits%>%
   left_join(AICs)%>%
   group_by(subject,experiment)%>%
@@ -117,11 +117,11 @@ best.models <- fits%>%
 
 ```
 
-```{r}
+```{r, Anova, include = FALSE}
 anova(lm(theta_max~experiment,best.models))
-
 ```
-```{r}
+
+```{r, Finding theta shift, echo = FALSE, message = FALSE}
 dat.3 <- best.models%>%
   pivot_wider(id_cols=subject,names_from = experiment, values_from=theta_max)%>%
   print()
@@ -132,8 +132,6 @@ dat.3 <- dat.3 %>% mutate(shift= `fatigue `-`control `)%>%
   summarise(mean.shift=mean(shift),se.shift=sd(shift)/sqrt(length(shift))) %>% 
   print()
 
-
-  
 ```
 
 # Discussion
