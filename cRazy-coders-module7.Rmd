@@ -11,6 +11,7 @@ library(tidyverse)
 library(MuMIn)
 library(knitr)
 library(dplyr)
+library(ggplot2)
 ```
 
 ```{r setup, include=FALSE}
@@ -60,6 +61,7 @@ dat.maxexp <- dat.maxrecording%>%
 dat.norm <- dat.maxrecording%>%
   left_join(dat.maxexp)%>%
   print(dat.norm)
+
 dat.norm2 <- dat.norm%>%
   group_by(angle, subject, experiment)%>%
   summarize(max_force_normalized=max_force_recording/max_force_exp)
@@ -121,8 +123,11 @@ anova(lm(theta_max~experiment,best.models))
 
 ```
 ```{r}
-best.models%>%
+dat.3 <- best.models%>%
   pivot_wider(id_cols=subject,names_from = experiment,values_from=theta_max)%>%
+  print()
+
+dat.3%>%
   mutate(shift=fatigue-control)%>%
   ungroup()%>%
   summarise(mean.shift=mean(shift),se.shift=sd(shift)/sqrt(length(shift)))
