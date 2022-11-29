@@ -30,7 +30,7 @@ Following data collection, the force-length relationship will be analyzed in two
 
 
 # Results
-```{r, Read files and making tibble, include=FALSE}
+```{r, Read files and making tibble}
 f <- list.files(path="./Project 8 data", full.names = T)
 dat.1 <- list()
 
@@ -69,13 +69,18 @@ dat.norm2 <- dat.norm%>%
   
 ```
 
-```{r, Cleaning up of tables and plotting, message = FALSE}
+The normalized data of the force length relationship is shown below. It is evident that the class data does not follow the normal expected force length relationship.
+
+```{r, Cleaning up of tables and plotting}
 dat.2 <- dat.norm2%>%
   na.omit()
 
 dat.2%>%
   ggplot(aes(angle,max_force_normalized,col=experiment))+geom_point()
 ```
+***Figure 1. Normalized data of force-length relationship in control and fatigued muscles ***
+
+Below, we start looking for the model that best fits the data by doing an AIC analysis.
 ```{r, AICs}
 AICs <- dat.norm2%>%
   group_by(subject,experiment)%>%
@@ -89,7 +94,7 @@ AICs <- dat.norm2%>%
 
 ```
 
-```{r, Table of fits of different models, include = FALSE}
+```{r, Table of fits of different models, message = FALSE}
 x.pred <- seq(45,157.5,length.out = 1000)
 
 fits <- dat.norm2%>%
@@ -117,11 +122,11 @@ best.models <- fits%>%
 
 ```
 
-```{r, Anova, include = FALSE}
+```{r, Anova}
 anova(lm(theta_max~experiment,best.models))
 ```
 
-```{r, Finding theta shift, echo = FALSE, message = FALSE}
+```{r, Finding theta shift}
 dat.3 <- best.models%>%
   pivot_wider(id_cols=subject,names_from = experiment, values_from=theta_max)%>%
   print()
