@@ -30,7 +30,7 @@ Following data collection, the force-length relationship will be analyzed in two
 
 
 # Results
-```{r, Read files and making tibble}
+```{r, Read files and making tibble, include= FALSE}
 f <- list.files(path="./Project 8 data", full.names = T)
 dat.1 <- list()
 
@@ -60,8 +60,10 @@ dat.maxexp <- dat.maxrecording%>%
 
 dat.norm <- dat.maxrecording%>%
   left_join(dat.maxexp)%>%
-  print(dat.norm)
+  print()
+```
 
+```{r, Class data table}
 dat.norm2 <- dat.norm%>%
   group_by(angle, subject, experiment)%>%
   summarize(max_force_normalized=max_force_recording/max_force_exp)
@@ -69,6 +71,7 @@ dat.norm2 <- dat.norm%>%
   
 ```
 ***Table 1. This table shows all of the data collected by the class.***
+
 
 
 The normalized data of the force length relationship is shown below. It is evident that the class data does not follow the normal expected force length relationship.
@@ -80,7 +83,9 @@ dat.2 <- dat.norm2%>%
 dat.2%>%
   ggplot(aes(angle,max_force_normalized,col=experiment))+geom_point()
 ```
+
 ***Figure 1. Normalized data of force-length relationship in control and fatigued muscles ***
+
 
 Below, we start looking for the model that best fits the data by doing an AIC analysis.
 ```{r, AICs}
@@ -127,13 +132,15 @@ best.models <- fits%>%
 ```
 ***Table 4. This table is as joined table that shows the best fitting model for each subject and experiment type based on the theta max and AIC value***
 
-We are now able to conduct an anova test with theta max in order to determine the best model for the fatigue and control groups.
+
+We are now able to conduct an anova test with theta max in order to determine the if the differences in theta max values for the control and fatigue groups are statistically significant.
 
 ```{r, Anova}
 anova(lm(theta_max~experiment,best.models))
 ```
 ***Table 5. This table contains the anova values in order to determine if the differences in theta max are significantly different.***
 As seen in the table above, the Pr value for this anova test is 0.04718, which is less than the significance threshold of 0.05. Therefore, we are able to conclude that there is a significant difference between the theta max values between control and fatigued muscles. 
+
 
 Lastly, we are able to find the average theta shift between the control and fatigue groups.
 
