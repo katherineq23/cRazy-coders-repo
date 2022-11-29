@@ -136,10 +136,13 @@ dat.3 <- dat.3 %>% mutate(shift= `fatigue `-`control `)%>% #Why do the variable 
 ```
 
 # Discussion
+A graph of the class wide data for the force angle relationship of the human forearm flexors deviates from a normal force-length relationship as there is an increase in maximum force, whereas a bell shaped distribution would normally be seen. As found in @macnaughton2006reports, there is a rightward shift in the force length relationship after sufficient fatigue. As the muscle was subjected to fatigue, the active force used at a longer muscle length increased from the previous trial that was done prior to the fatigue protocol. 
+
+A difference between the θmax value is shown between the control muscle and the fatigued muscle, as the values from the control were around 140 degrees, and the fatigued were around 157 degrees. An ANOVA analysis on this data reported a p value of 0.04718, which is less that 0.05 therefore signifying a significant relationship between the post-MVC fatigued muscle and control muscle force-angle relationship.
 
 # Author Contributions
 Eugene - Results
 Katherine - Introduction
 Phoebe - Methods
-Sabrina -
+Sabrina - Discussion
 
