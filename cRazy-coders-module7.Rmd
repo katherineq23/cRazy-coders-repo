@@ -122,9 +122,13 @@ best.models <- fits%>%
 
 ```
 
+We are now able to conduct an anova test with theta max in order to determine the best model for the fatigue and control groups.
+
 ```{r, Anova}
 anova(lm(theta_max~experiment,best.models))
 ```
+
+Lastly, we are able to find the average theta shift between the control and fatigue groups.
 
 ```{r, Finding theta shift}
 dat.3 <- best.models%>%
