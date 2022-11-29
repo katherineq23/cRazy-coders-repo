@@ -68,6 +68,8 @@ dat.norm2 <- dat.norm%>%
   print(dat.norm2)
   
 ```
+***Table 1. This table shows all of the data collected by the class.***
+
 
 The normalized data of the force length relationship is shown below. It is evident that the class data does not follow the normal expected force length relationship.
 
@@ -93,6 +95,7 @@ AICs <- dat.norm2%>%
   print()
 
 ```
+***Table 2. This table contains the AIC values of different models for each subject and experiment type***
 
 ```{r, Table of fits of different models, message = FALSE}
 x.pred <- seq(45,157.5,length.out = 1000)
@@ -110,6 +113,7 @@ fits <- dat.norm2%>%
    print()
 
 ```
+***Table 3. This table shows the theta max of each model for each subject and experiment type***
 
 ```{r, Finding best model, message = FALSE}
 best.models <- fits%>%
@@ -121,12 +125,15 @@ best.models <- fits%>%
   print()
 
 ```
+***Table 4. This table is as joined table that shows the best fitting model for each subject and experiment type based on the theta max and AIC value***
 
 We are now able to conduct an anova test with theta max in order to determine the best model for the fatigue and control groups.
 
 ```{r, Anova}
 anova(lm(theta_max~experiment,best.models))
 ```
+***Table 5. This table contains the anova values in order to determine if the differences in theta max are significantly different.***
+As seen in the table above, the Pr value for this anova test is 0.04718, which is less than the significance threshold of 0.05. Therefore, we are able to conclude that there is a significant difference between the theta max values between control and fatigued muscles. 
 
 Lastly, we are able to find the average theta shift between the control and fatigue groups.
 
@@ -140,9 +147,8 @@ dat.3 <- dat.3 %>% mutate(shift= `fatigue `-`control `)%>% #Why do the variable 
   na.omit()%>% 
   summarise(mean.shift=mean(shift),se.shift=sd(shift)/sqrt(length(shift))) %>% 
   print()
-
-
 ```
+***Table 6. This table contains the average theta max shift and contains the SEM values for them as well.***
 
 # Discussion
 A graph of the class wide data for the force angle relationship of the human forearm flexors deviates from a normal force-length relationship as there is an increase in maximum force, whereas a bell shaped distribution would normally be seen. As found in @macnaughton2006reports, there is a rightward shift in the force length relationship after sufficient fatigue. As the muscle was subjected to fatigue, the active force used at a longer muscle length increased from the previous trial that was done prior to the fatigue protocol. 
